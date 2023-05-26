@@ -2,27 +2,25 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app.kubernetes.io/instance: bin
-  name: bin
+    app.kubernetes.io/instance: nightwatcher
+  name: nightwatcher
   namespace: gaia-system
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app.kubernetes.io/instance: bin
+      app.kubernetes.io/instance: nightwatcher
   template:
     metadata:
-      annotations:
-        sidecar.istio.io/inject: "false"
       labels:
-        app.kubernetes.io/instance: bin
+        app.kubernetes.io/instance: nightwatcher
     spec:
       containers:
-      - image: lmxia/bin:v1
+      - image: lmxia/nightwatcher:v1.0.2
         imagePullPolicy: Always
         name: app
         ports:
-        - containerPort: 8080
+        - containerPort: 8282
           name: api
           protocol: TCP
         readinessProbe:
@@ -41,4 +39,4 @@ spec:
           requests:
             cpu: 100m
             memory: 128Mi
-      serviceAccountName: bin
+      serviceAccountName: nightwatcher
