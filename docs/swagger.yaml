@@ -1,0 +1,369 @@
+definitions:
+  app.Response:
+    properties:
+      code:
+        type: integer
+      data: {}
+      msg:
+        type: string
+    type: object
+  v1.DeploymentBody:
+    properties:
+      image:
+        type: string
+      label:
+        type: string
+      replicas:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /clusters:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: Cluster
+        in: path
+        name: cluster
+        required: true
+        type: string
+      - description: Namespace
+        in: path
+        name: namespace
+        required: true
+        type: string
+      - description: DeploymentName
+        in: path
+        name: deploymentName
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/app.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/app.Response'
+      summary: 查看全部clusters
+  /clusters/{namespace}/{cluster}/{label}:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: Cluster
+        in: path
+        name: cluster
+        required: true
+        type: string
+      - description: Namespace
+        in: path
+        name: namespace
+        required: true
+        type: string
+      - description: DeploymentName
+        in: path
+        name: deploymentName
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/app.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/app.Response'
+      summary: 查看全部具体某个cluster 的label的value
+  /k8s/configmaps/{namespace}/{name}:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: Cluster
+        in: path
+        name: cluster
+        required: true
+        type: string
+      - description: Namespace
+        in: path
+        name: namespace
+        required: true
+        type: string
+      - description: Name
+        in: path
+        name: name
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/app.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/app.Response'
+      summary: 删除Configmap资源
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: Cluster
+        in: path
+        name: cluster
+        required: true
+        type: string
+      - description: Namespace
+        in: path
+        name: namespace
+        required: true
+        type: string
+      - description: Name
+        in: path
+        name: name
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/app.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/app.Response'
+      summary: 获取Configmap资源
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: Cluster
+        in: path
+        name: cluster
+        required: true
+        type: string
+      - description: Namespace
+        in: path
+        name: namespace
+        required: true
+        type: string
+      - description: Name
+        in: path
+        name: name
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/app.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/app.Response'
+      summary: 更新Configmap资源
+  /k8s/deployments:
+    get:
+      parameters:
+      - description: Cluster
+        in: path
+        name: cluster
+        required: true
+        type: string
+      - description: Namespace
+        in: query
+        name: namespace
+        required: true
+        type: string
+      - description: Label
+        in: query
+        name: label
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/app.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/app.Response'
+      summary: 查看deployment列表
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Cluster
+        in: path
+        name: cluster
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/app.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/app.Response'
+      summary: 创建deployment
+  /k8s/deployments/{namespace}/{deploymentName}:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: Cluster
+        in: path
+        name: cluster
+        required: true
+        type: string
+      - description: Namespace
+        in: path
+        name: namespace
+        required: true
+        type: string
+      - description: DeploymentName
+        in: path
+        name: deploymentName
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/app.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/app.Response'
+      summary: 查看deployment
+    patch:
+      parameters:
+      - description: Cluster
+        in: path
+        name: cluster
+        required: true
+        type: string
+      - description: Namespace
+        in: path
+        name: namespace
+        required: true
+        type: string
+      - description: DeploymentName
+        in: path
+        name: deploymentName
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/app.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/app.Response'
+      summary: 批量更新deployment
+    put:
+      parameters:
+      - description: Cluster
+        in: path
+        name: cluster
+        required: true
+        type: string
+      - description: Namespace
+        in: path
+        name: namespace
+        required: true
+        type: string
+      - description: DeploymentName
+        in: path
+        name: deploymentName
+        required: true
+        type: string
+      - description: RequestBody
+        in: body
+        name: RequestBody
+        required: true
+        schema:
+          $ref: '#/definitions/v1.DeploymentBody'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/app.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/app.Response'
+      summary: 更新deployment
+  /k8s/pods:
+    get:
+      parameters:
+      - description: Namespace
+        in: query
+        name: namespace
+        required: true
+        type: string
+      - description: Label
+        in: query
+        name: label
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/app.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/app.Response'
+      summary: 查看pod列表
+  /k8s/pods/{namespace}/{podName}:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: Namespace
+        in: path
+        name: namespace
+        required: true
+        type: string
+      - description: DeploymentName
+        in: path
+        name: deploymentName
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/app.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/app.Response'
+      summary: 查看pod
+swagger: "2.0"
