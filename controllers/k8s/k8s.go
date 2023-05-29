@@ -26,7 +26,7 @@ func GetClientWithPanic() (*ClientManager, error) {
 		var err error
 		k8sClient, err = GetClient()
 		if err != nil {
-			log.Println("we can't get k8s client")
+			log.Println("we can't get k8s client" + err.Error())
 		}
 	})
 	if k8sClients == nil {
@@ -39,7 +39,7 @@ var k8sClients = &sync.Map{} //并发map
 
 func GetClient() (*ClientManager, error) {
 	// By default we get in cluster config.
-	localKubeConfig, err := utils.LoadsKubeConfig("/Users/xialingming/.kube/config", 1)
+	localKubeConfig, err := utils.LoadsKubeConfig("", 1)
 	if err != nil {
 		return nil, err
 	}
